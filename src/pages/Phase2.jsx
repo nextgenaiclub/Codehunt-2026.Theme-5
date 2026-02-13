@@ -355,6 +355,30 @@ export default function Phase2({ team, setTeam }) {
                 </div>
             )}
 
+            {/* Show location when last question answered correctly */}
+            {feedback && feedback.correct && currentQ === questions.length - 1 && (
+                <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                    <h2 style={{ color: '#22c55e', marginBottom: '15px', fontFamily: 'Orbitron' }}>
+                        🎉 Phase 2 Complete!
+                    </h2>
+                    <div style={{
+                        display: 'inline-block',
+                        padding: '20px 40px',
+                        background: 'rgba(255, 215, 0, 0.1)',
+                        border: '2px solid #FFD700',
+                        borderRadius: '15px',
+                        marginTop: '10px',
+                        marginBottom: '20px'
+                    }}>
+                        <p style={{ color: '#FFD700', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '8px' }}>
+                            📍 NEXT LOCATION
+                        </p>
+                        <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Room 2101 and Room 2102 Labs</h2>
+                    </div>
+                    <p style={{ color: '#FFD700', fontSize: '1.1rem' }}>Scan the next QR code to continue.</p>
+                </div>
+            )}
+
             {/* Question Indicators */}
             <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '30px' }}>
                 {questions.map((_, i) => (
