@@ -604,7 +604,7 @@ app.post('/api/phase2/complete', async (req, res) => {
     }
 });
 
-// Submit Phase 2 answers (legacy)
+// Submit Phase 2 answers
 app.post('/api/phase2/submit', async (req, res) => {
     try {
         const { teamId, answers } = req.body;
@@ -621,27 +621,20 @@ app.post('/api/phase2/submit', async (req, res) => {
             return res.status(400).json({ error: 'Phase 2 already completed' });
         }
 
-        if ((team.phase2?.attempts || 0) >= 2) {
-            return res.status(400).json({ error: 'Maximum attempts reached' });
-        }
-
-        // Calculate score
+        // Calculate score - only track which are correct/incorrect (no correct answers exposed)
         let score = 0;
         const results = phase2Questions.map((q, index) => {
             const isCorrect = answers[index] === q.correctAnswer;
             if (isCorrect) score++;
             return {
-                questionId: q.id,
-                userAnswer: answers[index],
-                correctAnswer: q.correctAnswer,
+                questionIndex: index,
                 isCorrect
             };
         });
 
-        const passed = score >= 6;
+        const passed = score === phase2Questions.length; // ALL must be correct
         const newAttempts = (team.phase2?.attempts || 0) + 1;
 
-        // Use nested object structure for Firebase compatibility (no arrays)
         const updateData = {
             phase2: {
                 attempts: newAttempts,
@@ -658,16 +651,15 @@ app.post('/api/phase2/submit', async (req, res) => {
 
         await saveTeam(teamId, updateData);
 
-        console.log(`📝 Phase 2 - Team: ${team.teamName}, Score: ${score}/10, Passed: ${passed}`);
+        console.log(`📝 Phase 2 - Team: ${team.teamName}, Score: ${score}/${phase2Questions.length}, Passed: ${passed}, Attempt: ${newAttempts}`);
 
         res.json({
             success: true,
             score,
+            total: phase2Questions.length,
             passed,
             results,
-            attempts: newAttempts,
-            canRetry: !passed && newAttempts < 2,
-            questions: phase2Questions
+            attempts: newAttempts
         });
     } catch (error) {
         console.error('Phase 2 submit error:', error.message, error.stack);

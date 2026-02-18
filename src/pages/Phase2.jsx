@@ -5,13 +5,13 @@ import { API_URL } from '../App'
 export default function Phase2({ team, setTeam }) {
     const [questions, setQuestions] = useState([])
     const [currentQ, setCurrentQ] = useState(0)
-    const [selectedAnswer, setSelectedAnswer] = useState(null)
-    const [feedback, setFeedback] = useState(null) // { correct: true/false }
+    const [answers, setAnswers] = useState({})
     const [timeLeft, setTimeLeft] = useState(300) // 5 minutes
     const [loading, setLoading] = useState(true)
     const [timedOut, setTimedOut] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
+    const [results, setResults] = useState(null)
     const [completed, setCompleted] = useState(false)
-    const [error, setError] = useState('')
     const timerRef = useRef(null)
 
     // Fetch questions
@@ -33,7 +33,7 @@ export default function Phase2({ team, setTeam }) {
 
     // Timer
     useEffect(() => {
-        if (loading || timedOut || completed) return
+        if (loading || timedOut || completed || results) return
 
         timerRef.current = setInterval(() => {
             setTimeLeft(prev => {
@@ -47,73 +47,72 @@ export default function Phase2({ team, setTeam }) {
         }, 1000)
 
         return () => clearInterval(timerRef.current)
-    }, [loading, timedOut, completed])
+    }, [loading, timedOut, completed, results])
 
-    // Handle answer selection and validation
-    const handleCheckAnswer = async () => {
-        if (selectedAnswer === null || feedback) return
+    // Submit all answers to backend
+    const handleSubmitAll = async () => {
+        if (submitting) return
+        setSubmitting(true)
+        clearInterval(timerRef.current)
+
+        const answersArray = questions.map((_, i) => answers[i] ?? -1)
 
         try {
-            const res = await fetch(`${API_URL}/phase2/check-answer`, {
+            const res = await fetch(`${API_URL}/phase2/submit`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    teamId: team?.teamId,
-                    questionIndex: currentQ,
-                    answer: selectedAnswer
-                })
+                body: JSON.stringify({ teamId: team?.teamId, answers: answersArray })
             })
             const data = await res.json()
 
-            if (data.correct) {
-                setFeedback({ correct: true })
-                // If last question, mark completed
-                if (currentQ === questions.length - 1) {
-                    // Submit completion to server
-                    try {
-                        await fetch(`${API_URL}/phase2/complete`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ teamId: team?.teamId })
-                        })
-                    } catch (e) {
-                        console.error('Complete call failed:', e)
-                    }
-                    // Always refresh team data and mark completed
-                    setCompleted(true)
-                    clearInterval(timerRef.current)
-                    try {
-                        const teamRes = await fetch(`${API_URL}/teams/${team.teamName}`)
-                        const teamData = await teamRes.json()
-                        if (teamRes.ok) setTeam(teamData)
-                    } catch (e) {
-                        console.error('Team refresh failed:', e)
-                    }
+            if (!res.ok) {
+                console.error('Submit error:', data.error)
+                setSubmitting(false)
+                return
+            }
+
+            setResults(data)
+
+            if (data.passed) {
+                setCompleted(true)
+                try {
+                    const teamRes = await fetch(`${API_URL}/teams/${team.teamName}`)
+                    const teamData = await teamRes.json()
+                    if (teamRes.ok) setTeam(teamData)
+                } catch (e) {
+                    console.error('Team refresh failed:', e)
                 }
-            } else {
-                setFeedback({ correct: false })
             }
         } catch (err) {
-            console.error('Check answer error:', err)
-            setError('Failed to check answer')
+            console.error('Submit failed:', err)
         }
+        setSubmitting(false)
+    }
+
+    const handleSelectAnswer = (optionIndex) => {
+        if (results) return
+        setAnswers(prev => ({ ...prev, [currentQ]: optionIndex }))
     }
 
     const handleNext = () => {
-        if (feedback?.correct && currentQ < questions.length - 1) {
+        if (currentQ < questions.length - 1) {
             setCurrentQ(prev => prev + 1)
-            setSelectedAnswer(null)
-            setFeedback(null)
         }
     }
 
-    const handleRetryQuestion = () => {
-        setSelectedAnswer(null)
-        setFeedback(null)
+    const handlePrev = () => {
+        if (currentQ > 0) {
+            setCurrentQ(prev => prev - 1)
+        }
     }
 
-    const handleRestart = () => {
-        window.location.reload()
+    const handleRetry = () => {
+        setResults(null)
+        setAnswers({})
+        setCurrentQ(0)
+        setSubmitting(false)
+        setTimeLeft(300)
+        setTimedOut(false)
     }
 
     // Redirect checks
@@ -127,7 +126,7 @@ export default function Phase2({ team, setTeam }) {
         )
     }
 
-    if (!completed && team.currentPhase > 2) {
+    if (!completed && !results && team.currentPhase > 2) {
         return (
             <div className="container" style={{ textAlign: 'center', padding: '60px 0' }}>
                 <div className="success-icon"><Check size={60} /></div>
@@ -149,7 +148,7 @@ export default function Phase2({ team, setTeam }) {
         )
     }
 
-    if (!completed && team.currentPhase < 2) {
+    if (!completed && !results && team.currentPhase < 2) {
         return (
             <div className="container" style={{ textAlign: 'center', padding: '60px 0' }}>
                 <AlertCircle size={60} style={{ color: '#FFD700', marginBottom: '20px' }} />
@@ -163,17 +162,6 @@ export default function Phase2({ team, setTeam }) {
         const m = Math.floor(seconds / 60)
         const s = seconds % 60
         return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
-    }
-
-    if (error) {
-        return (
-            <div className="container" style={{ textAlign: 'center', padding: '60px 0' }}>
-                <AlertCircle size={60} style={{ color: '#ef4444', marginBottom: '20px' }} />
-                <h2 style={{ color: '#ef4444', marginBottom: '20px' }}>Error</h2>
-                <p style={{ marginBottom: '30px' }}>{error}</p>
-                <button onClick={() => window.location.reload()} className="btn btn-primary">Try Again</button>
-            </div>
-        )
     }
 
     if (loading) {
@@ -203,51 +191,102 @@ export default function Phase2({ team, setTeam }) {
                 <Clock size={80} style={{ color: '#ef4444', marginBottom: '20px' }} />
                 <h1 style={{ color: '#ef4444', marginBottom: '15px', fontFamily: 'Orbitron' }}>TIME'S UP!</h1>
                 <p style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#ccc' }}>
-                    You ran out of time. You answered {currentQ} out of {questions.length} questions.
+                    You ran out of time. You answered {Object.keys(answers).length} out of {questions.length} questions.
                 </p>
                 <p style={{ marginBottom: '30px', color: '#FFD700' }}>
-                    You must restart the quiz to try again. You'll get a fresh 5 minutes.
+                    You must restart the quiz to try again.
                 </p>
-                <button onClick={handleRestart} className="btn btn-primary btn-large">
+                <button onClick={handleRetry} className="btn btn-primary btn-large" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
                     <RotateCcw size={20} /> Restart Quiz
                 </button>
             </div>
         )
     }
 
-    // COMPLETED screen
-    if (completed) {
-        return (
-            <div className="container" style={{ textAlign: 'center', padding: '60px 0' }}>
-                <div className="success-icon"><Check size={80} /></div>
-                <h1 style={{ color: '#22c55e', marginBottom: '15px', fontFamily: 'Orbitron' }}>Phase 2 Complete!</h1>
-                <p style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#ccc' }}>
-                    You answered all {questions.length} questions correctly!
-                </p>
-                <p style={{ marginBottom: '30px', color: '#FFD700' }}>
-                    Time remaining: {formatTime(timeLeft)}
-                </p>
-                <div style={{
-                    display: 'inline-block',
-                    padding: '20px 40px',
-                    background: 'rgba(255, 215, 0, 0.1)',
-                    border: '2px solid #FFD700',
-                    borderRadius: '15px',
-                    marginTop: '20px',
-                    marginBottom: '20px'
-                }}>
-                    <p style={{ color: '#FFD700', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '8px' }}>
-                        📍 NEXT LOCATION
+    // RESULTS screen (after submission)
+    if (results) {
+        const wrongQuestions = results.results.filter(r => !r.isCorrect)
+        const wrongCount = wrongQuestions.length
+
+        if (results.passed) {
+            return (
+                <div className="container" style={{ textAlign: 'center', padding: '60px 0' }}>
+                    <div className="success-icon"><Check size={80} /></div>
+                    <h1 style={{ color: '#22c55e', marginBottom: '15px', fontFamily: 'Orbitron' }}>Phase 2 Complete!</h1>
+                    <p style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#ccc' }}>
+                        You answered all {results.total} questions correctly!
                     </p>
-                    <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Room 2101 and Room 2102 Labs</h2>
+                    <div style={{
+                        display: 'inline-block',
+                        padding: '20px 40px',
+                        background: 'rgba(255, 215, 0, 0.1)',
+                        border: '2px solid #FFD700',
+                        borderRadius: '15px',
+                        marginTop: '20px',
+                        marginBottom: '20px'
+                    }}>
+                        <p style={{ color: '#FFD700', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '8px' }}>
+                            📍 NEXT LOCATION
+                        </p>
+                        <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Room 2101 and Room 2102 Labs</h2>
+                    </div>
+                    <br />
+                    <p style={{ color: '#FFD700', fontSize: '1.1rem' }}>Scan the next QR code to continue.</p>
                 </div>
-                <br />
-                <p style={{ color: '#FFD700', fontSize: '1.1rem' }}>Scan the next QR code to continue.</p>
+            )
+        }
+
+        // FAILED - show which questions were wrong (not the correct answers)
+        return (
+            <div className="container" style={{ textAlign: 'center', padding: '60px 0', maxWidth: '700px', margin: '0 auto' }}>
+                <X size={70} style={{ color: '#ef4444', marginBottom: '20px' }} />
+                <h2 style={{ color: '#ef4444', marginBottom: '15px' }}>Quiz Not Passed</h2>
+                <p style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#ccc' }}>
+                    You got <span style={{ color: '#22c55e', fontWeight: 'bold' }}>{results.score}</span> out of <span style={{ fontWeight: 'bold' }}>{results.total}</span> correct.
+                </p>
+                <p style={{ fontSize: '1.1rem', marginBottom: '30px', color: '#ef4444' }}>
+                    {wrongCount} {wrongCount === 1 ? 'answer was' : 'answers were'} incorrect. You must get all correct to proceed.
+                </p>
+
+                {/* Show which questions were wrong */}
+                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '30px' }}>
+                    {results.results.map((r, i) => (
+                        <div
+                            key={i}
+                            style={{
+                                width: '44px', height: '44px', borderRadius: '10px',
+                                background: r.isCorrect ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                                border: `2px solid ${r.isCorrect ? '#22c55e' : '#ef4444'}`,
+                                color: r.isCorrect ? '#22c55e' : '#ef4444',
+                                fontWeight: 'bold',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                fontSize: '0.9rem'
+                            }}
+                        >
+                            {r.isCorrect ? <Check size={18} /> : <X size={18} />}
+                        </div>
+                    ))}
+                </div>
+
+                <p style={{ color: '#b3b3b3', fontSize: '0.95rem', marginBottom: '25px' }}>
+                    Review the questions you got wrong and try again.
+                </p>
+
+                <button
+                    onClick={handleRetry}
+                    className="btn btn-primary btn-large"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '1.1rem', padding: '15px 40px' }}
+                >
+                    <RotateCcw size={20} /> Try Again
+                </button>
             </div>
         )
     }
 
-    // QUIZ screen
+    // QUIZ screen - one question at a time, no feedback
+    const allAnswered = Object.keys(answers).length === questions.length
+    const isLastQuestion = currentQ === questions.length - 1
+
     return (
         <div className="container" style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '30px' }}>
@@ -257,7 +296,7 @@ export default function Phase2({ team, setTeam }) {
                     Theme: Computer Science Fundamentals
                 </p>
                 <p style={{ fontSize: '0.9rem', marginTop: '5px', color: '#ccc' }}>
-                    Answer each question correctly to proceed. Wrong answers must be retried.
+                    Answer all questions. You must get every answer correct to pass.
                 </p>
             </div>
 
@@ -274,133 +313,86 @@ export default function Phase2({ team, setTeam }) {
 
             {/* Progress Bar */}
             <div className="progress-container">
-                <div className="progress-bar" style={{ width: `${(currentQ / questions.length) * 100}%` }} />
+                <div className="progress-bar" style={{ width: `${(Object.keys(answers).length / questions.length) * 100}%` }} />
             </div>
 
             {/* Question Card */}
             {questions[currentQ] && (
-                <div className="quiz-question" style={{
-                    borderColor: feedback ? (feedback.correct ? '#22c55e' : '#ef4444') : undefined
-                }}>
+                <div className="quiz-question">
                     <div className="quiz-question-number">Question {currentQ + 1}</div>
                     <p className="quiz-question-text">{questions[currentQ].question}</p>
                     <div className="quiz-options">
                         {questions[currentQ].options.map((opt, i) => (
                             <div
                                 key={i}
-                                className={`quiz-option ${selectedAnswer === i ? 'selected' : ''} ${
-                                    feedback && selectedAnswer === i
-                                        ? (feedback.correct ? 'correct' : 'incorrect')
-                                        : ''
-                                }`}
-                                onClick={() => {
-                                    if (!feedback) setSelectedAnswer(i)
-                                }}
-                                style={{
-                                    cursor: feedback ? 'not-allowed' : 'pointer',
-                                    opacity: feedback && selectedAnswer !== i ? 0.5 : 1
-                                }}
+                                className={`quiz-option ${answers[currentQ] === i ? 'selected' : ''}`}
+                                onClick={() => handleSelectAnswer(i)}
+                                style={{ cursor: 'pointer' }}
                             >
                                 <span className="quiz-radio" />
                                 <span className="quiz-option-text">{opt}</span>
-                                {feedback && selectedAnswer === i && feedback.correct && (
-                                    <Check size={20} style={{ marginLeft: 'auto', color: '#22c55e' }} />
-                                )}
-                                {feedback && selectedAnswer === i && !feedback.correct && (
-                                    <X size={20} style={{ marginLeft: 'auto', color: '#ef4444' }} />
-                                )}
                             </div>
                         ))}
                     </div>
                 </div>
             )}
 
-            {/* Action Buttons */}
+            {/* Navigation Buttons */}
             <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '30px' }}>
-                {!feedback && (
+                {currentQ > 0 && (
+                    <button onClick={handlePrev} className="btn btn-secondary">
+                        Previous
+                    </button>
+                )}
+
+                {!isLastQuestion && (
                     <button
-                        onClick={handleCheckAnswer}
+                        onClick={handleNext}
                         className="btn btn-primary"
-                        disabled={selectedAnswer === null}
+                        disabled={answers[currentQ] === undefined}
                     >
-                        Submit Answer <Check size={20} />
-                    </button>
-                )}
-
-                {feedback && !feedback.correct && (
-                    <button onClick={handleRetryQuestion} className="btn btn-primary">
-                        <RotateCcw size={20} /> Try Again
-                    </button>
-                )}
-
-                {feedback && feedback.correct && currentQ < questions.length - 1 && (
-                    <button onClick={handleNext} className="btn btn-primary">
                         Next Question <ArrowRight size={20} />
                     </button>
                 )}
+
+                {isLastQuestion && allAnswered && (
+                    <button
+                        onClick={handleSubmitAll}
+                        className="btn btn-primary btn-large"
+                        disabled={submitting}
+                    >
+                        {submitting ? 'Submitting...' : 'Submit All Answers'} <Check size={20} />
+                    </button>
+                )}
             </div>
-
-            {/* Feedback Message */}
-            {feedback && (
-                <div style={{
-                    textAlign: 'center',
-                    marginTop: '20px',
-                    padding: '15px',
-                    borderRadius: '10px',
-                    background: feedback.correct ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                    border: `1px solid ${feedback.correct ? '#22c55e' : '#ef4444'}`
-                }}>
-                    <p style={{
-                        color: feedback.correct ? '#22c55e' : '#ef4444',
-                        fontWeight: 'bold',
-                        fontSize: '1.1rem'
-                    }}>
-                        {feedback.correct ? 'Correct! Well done!' : 'Incorrect! Try again.'}
-                    </p>
-                </div>
-            )}
-
-            {/* Show location when last question answered correctly */}
-            {feedback && feedback.correct && currentQ === questions.length - 1 && (
-                <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                    <h2 style={{ color: '#22c55e', marginBottom: '15px', fontFamily: 'Orbitron' }}>
-                        🎉 Phase 2 Complete!
-                    </h2>
-                    <div style={{
-                        display: 'inline-block',
-                        padding: '20px 40px',
-                        background: 'rgba(255, 215, 0, 0.1)',
-                        border: '2px solid #FFD700',
-                        borderRadius: '15px',
-                        marginTop: '10px',
-                        marginBottom: '20px'
-                    }}>
-                        <p style={{ color: '#FFD700', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '8px' }}>
-                            📍 NEXT LOCATION
-                        </p>
-                        <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Room 2101 and Room 2102 Labs</h2>
-                    </div>
-                    <p style={{ color: '#FFD700', fontSize: '1.1rem' }}>Scan the next QR code to continue.</p>
-                </div>
-            )}
 
             {/* Question Indicators */}
             <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '30px' }}>
                 {questions.map((_, i) => (
                     <div
                         key={i}
+                        onClick={() => setCurrentQ(i)}
                         style={{
                             width: '40px', height: '40px', borderRadius: '8px', border: 'none',
-                            background: i < currentQ ? '#22c55e' : i === currentQ ? '#FFD700' : '#2a2a2a',
-                            color: i <= currentQ ? '#000' : '#fff',
+                            background: answers[i] !== undefined
+                                ? (i === currentQ ? '#FFD700' : 'rgba(255, 215, 0, 0.3)')
+                                : (i === currentQ ? '#FFD700' : '#2a2a2a'),
+                            color: i === currentQ ? '#000' : (answers[i] !== undefined ? '#FFD700' : '#fff'),
                             fontWeight: 'bold',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: '0.9rem'
+                            fontSize: '0.9rem',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
                         }}
                     >
-                        {i < currentQ ? <Check size={16} /> : i + 1}
+                        {i + 1}
                     </div>
                 ))}
+            </div>
+
+            {/* Answered count */}
+            <div style={{ textAlign: 'center', marginTop: '15px', color: '#b3b3b3', fontSize: '0.9rem' }}>
+                {Object.keys(answers).length} of {questions.length} answered
             </div>
         </div>
     )
