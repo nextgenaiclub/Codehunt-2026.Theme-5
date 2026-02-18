@@ -424,10 +424,22 @@ const phase5Riddles = [
     },
     {
         id: 5,
-        type: "mcq",
-        riddle: "Which loop is guaranteed to execute its body at least once, even if the condition is false initially?",
-        options: ["for loop", "while loop", "do-while loop", "recursive loop"],
-        correctAnswer: 2
+        type: "maze",
+        riddle: "Navigate through the maze! Use arrow keys or swipe to reach the exit.",
+        maze: [
+            [0,0,1,1,1,1,1,1,1],
+            [1,0,1,0,0,0,0,0,1],
+            [1,0,1,0,1,1,1,0,1],
+            [1,0,0,0,1,0,0,0,1],
+            [1,1,1,0,1,0,1,1,1],
+            [1,0,0,0,0,0,1,0,1],
+            [1,0,1,1,1,0,1,0,1],
+            [1,0,0,0,1,0,0,0,0],
+            [1,1,1,1,1,1,1,1,0]
+        ],
+        start: [0, 0],
+        end: [8, 8],
+        acceptedAnswers: ["completed"]
     }
 ];
 
@@ -832,7 +844,10 @@ app.get('/api/phase5/riddles', (req, res) => {
         id: r.id,
         type: r.type,
         riddle: r.riddle,
-        options: r.options
+        options: r.options,
+        maze: r.maze,
+        start: r.start,
+        end: r.end
     }));
     res.json(riddlesWithoutAnswers);
 });
@@ -859,6 +874,8 @@ app.post('/api/phase5/answer', async (req, res) => {
         let isCorrect = false;
         if (riddle.type === 'mcq') {
             isCorrect = answer === riddle.correctAnswer;
+        } else if (riddle.type === 'maze') {
+            isCorrect = answer === 'completed';
         } else {
             isCorrect = riddle.acceptedAnswers.includes(answer.toLowerCase().trim());
         }
@@ -894,6 +911,8 @@ app.post('/api/phase5/complete', async (req, res) => {
                 const riddle = phase5Riddles.find(r => r.id === parseInt(riddleId));
                 if (riddle) {
                     if (riddle.type === 'mcq' && ans.answer === riddle.correctAnswer) {
+                        serverScore++;
+                    } else if (riddle.type === 'maze' && ans.answer === 'completed') {
                         serverScore++;
                     } else if (riddle.type === 'text' && typeof ans.answer === 'string' &&
                         riddle.acceptedAnswers.some(a => a.trim().toLowerCase() === ans.answer.trim().toLowerCase())) {
