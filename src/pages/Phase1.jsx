@@ -43,7 +43,7 @@ export default function Phase1({ team, setTeam }) {
                     <p style={{ color: '#FFD700', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '8px' }}>
                         NEXT LOCATION
                     </p>
-                    <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Eco Campus Wall</h2>
+                    <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Inside the Canteen Area</h2>
                 </div>
             </div>
         )
@@ -126,7 +126,7 @@ export default function Phase1({ team, setTeam }) {
                     <p style={{ color: '#FFD700', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '8px' }}>
                         NEXT LOCATION
                     </p>
-                    <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Eco Campus Wall</h2>
+                    <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Inside the Canteen Area</h2>
                 </div>
                 <br />
                 <p style={{ marginTop: '10px', color: '#FFD700' }}>Scan the next QR code to continue.</p>

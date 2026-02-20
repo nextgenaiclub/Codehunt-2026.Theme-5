@@ -149,7 +149,6 @@ export default function Phase4({ team, setTeam }) {
 
     const highlightCode = (codeStr) => {
         return codeStr
-            .replace(/(#include|int|float|char|void|return|if|else|for|while|printf|main)/g, '<span class="code-keyword">$1</span>')
             .replace(/(".*?")/g, '<span class="code-string">$1</span>')
             .replace(/(\d+)/g, '<span class="code-number">$1</span>')
             .replace(/(\/\/.*)/g, '<span class="code-comment">$1</span>')

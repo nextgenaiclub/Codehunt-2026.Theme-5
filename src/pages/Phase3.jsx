@@ -136,7 +136,6 @@ export default function Phase3({ team, setTeam }) {
 
     const highlightCode = (code) => {
         return code
-            .replace(/(int|float|char|void|return|if|else|for|while|printf|scanf)/g, '<span class="code-keyword">$1</span>')
             .replace(/(".*?")/g, '<span class="code-string">$1</span>')
             .replace(/(\d+)/g, '<span class="code-number">$1</span>')
     }
@@ -184,7 +183,7 @@ export default function Phase3({ team, setTeam }) {
 
                 {results.questions && results.results && (
                     <>
-                        <h3 style={{ marginBottom: '20px' }}>Review Answers</h3>
+                        <h3 style={{ marginBottom: '20px' }}>Your Results</h3>
                         {results.questions.map((q, i) => (
                             <div key={q.id} className="quiz-question" style={{
                                 borderColor: results.results[i]?.isCorrect ? '#22c55e' : '#ef4444'
@@ -194,17 +193,13 @@ export default function Phase3({ team, setTeam }) {
                                     <pre className="code-content" dangerouslySetInnerHTML={{ __html: highlightCode(q.code) }} />
                                 </div>
                                 {q.question && <p style={{ color: '#FFD700', marginBottom: '15px' }}>{q.question}</p>}
-                                <div className="quiz-options">
-                                    {q.options.map((opt, j) => (
-                                        <div key={j} className={`quiz-option ${j === q.correctAnswer ? 'correct' :
-                                            j === results.results[i]?.userAnswer && !results.results[i]?.isCorrect ? 'incorrect' : ''
-                                            }`}>
-                                            <span className="quiz-radio" />
-                                            <span className="quiz-option-text">{opt}</span>
-                                            {j === q.correctAnswer && <Check size={20} style={{ marginLeft: 'auto', color: '#22c55e' }} />}
-                                        </div>
-                                    ))}
-                                </div>
+                                <p style={{
+                                    color: results.results[i]?.isCorrect ? '#22c55e' : '#ef4444',
+                                    fontWeight: 'bold',
+                                    fontSize: '1.1rem'
+                                }}>
+                                    {results.results[i]?.isCorrect ? 'Correct' : 'Incorrect'}
+                                </p>
                             </div>
                         ))}
                     </>
