@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Users, Check, AlertCircle } from 'lucide-react'
 import { API_URL } from '../App'
 
@@ -12,7 +11,6 @@ const THEMES = [
 ]
 
 export default function Register({ team, setTeam }) {
-    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [errors, setErrors] = useState({})
@@ -34,10 +32,7 @@ export default function Register({ team, setTeam }) {
                 <p style={{ fontSize: '1.1rem', marginBottom: '10px' }}>
                     Team <strong>{team.teamName}</strong> is registered.
                 </p>
-                <p style={{ color: '#FFD700', marginBottom: '25px' }}>Scan the Phase 1 QR code or click below to continue.</p>
-                <button onClick={() => navigate('/phase1')} className="btn btn-primary btn-large">
-                    Go to Phase 1
-                </button>
+                <p style={{ color: '#FFD700' }}>Scan the Phase 1 QR code to continue.</p>
             </div>
         )
     }
@@ -83,11 +78,7 @@ export default function Register({ team, setTeam }) {
                 return
             }
 
-            // Fetch full team data
-            const teamRes = await fetch(`${API_URL}/teams/${formData.teamName}`)
-            const teamData = await teamRes.json()
-
-            setTeam(teamData)
+            setTeam(data.team)
             setSuccess(true)
         } catch (err) {
             setErrors({ submit: 'Failed to connect to server. Make sure backend is running.' })
@@ -129,10 +120,7 @@ export default function Register({ team, setTeam }) {
                     <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#fff' }}>Eco Campus Wall</h2>
                 </div>
                 <br />
-                <p style={{ marginTop: '10px', color: '#FFD700', marginBottom: '25px' }}>Scan the Phase 1 QR code or click below to continue.</p>
-                <button onClick={() => navigate('/phase1')} className="btn btn-primary btn-large">
-                    Go to Phase 1
-                </button>
+                <p style={{ marginTop: '10px', color: '#FFD700' }}>Scan the Phase 1 QR code to continue.</p>
             </div>
         )
     }

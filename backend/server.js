@@ -497,9 +497,7 @@ app.post('/api/teams/register', async (req, res) => {
         res.json({
             success: true,
             message: 'Registration successful!',
-            teamId,
-            teamName: team.teamName,
-            currentPhase: 1
+            team
         });
     } catch (error) {
         console.error('Registration error:', error);
