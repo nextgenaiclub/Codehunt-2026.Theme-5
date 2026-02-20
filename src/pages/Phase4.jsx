@@ -61,19 +61,19 @@ export default function Phase4({ team, setTeam }) {
                     textAlign: 'left'
                 }}>
                     <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.9rem', marginBottom: '15px', textAlign: 'center' }}>
-                        🧩 RIDDLE - Find Your Next Location
+                        🧩 STAGE 5 RIDDLE - Find Your Next Location
                     </p>
                     <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px', fontSize: '1.1rem' }}>
-                        Where campus paths cross, both science minds unite,<br/>
-                        Engineers and pharma learn from morning till night.<br/>
-                        On the ground where green leaves quietly chant,<br/>
-                        Look down below, resting under a plant.
+                        Walk past the slope, take a steady climb,<br />
+                        Where green ideas met management in time.<br />
+                        A wall that shows the campus name,<br />
+                        Look near the symbol of college fame.
                     </p>
                     <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.6' }}>
-                        <strong>Hinglish:</strong> Campus ke center mein jahan sabka flow hai,<br/>
-                        Engineer aur pharma ka common show hai.<br/>
-                        Neeche zameen par hariyali ka hint,<br/>
-                        Ped ke neeche chhupa hai agla print.
+                        <strong>Hinglish:</strong> Slope cross karke thoda aage jao,<br />
+                        Management aur eco ka combo pao.<br />
+                        Deewar pe jahan college ka sign,<br />
+                        Logo ke paas milega tumhara next line.
                     </p>
                 </div>
                 <br />
@@ -98,19 +98,19 @@ export default function Phase4({ team, setTeam }) {
                     textAlign: 'left'
                 }}>
                     <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                        🧩 RIDDLE - Find Your Next Location
+                        🧩 STAGE 5 RIDDLE - Find Your Next Location
                     </p>
                     <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px' }}>
-                        Where campus paths cross, both science minds unite,<br/>
-                        Engineers and pharma learn from morning till night.<br/>
-                        On the ground where green leaves quietly chant,<br/>
-                        Look down below, resting under a plant.
+                        Walk past the slope, take a steady climb,<br />
+                        Where green ideas met management in time.<br />
+                        A wall that shows the campus name,<br />
+                        Look near the symbol of college fame.
                     </p>
                     <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                        <strong>Hinglish:</strong> Campus ke center mein jahan sabka flow hai,<br/>
-                        Engineer aur pharma ka common show hai.<br/>
-                        Neeche zameen par hariyali ka hint,<br/>
-                        Ped ke neeche chhupa hai agla print.
+                        <strong>Hinglish:</strong> Slope cross karke thoda aage jao,<br />
+                        Management aur eco ka combo pao.<br />
+                        Deewar pe jahan college ka sign,<br />
+                        Logo ke paas milega tumhara next line.
                     </p>
                 </div>
             </div>

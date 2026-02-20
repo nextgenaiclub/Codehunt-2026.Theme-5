@@ -45,19 +45,19 @@ export default function Register({ team, setTeam }) {
                     textAlign: 'left'
                 }}>
                     <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                        🧩 RIDDLE - Find Your Next Location
+                        🧩 STAGE 1 RIDDLE - Find Your Next Location
                     </p>
                     <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px' }}>
-                        Walk past the slope, take a steady climb,<br/>
-                        Where green ideas met management in time.<br/>
-                        A wall that shows the campus name,<br/>
-                        Look near the symbol of college fame.
+                        Where rules are read and justice taught,<br />
+                        The number seven matters more than you thought.<br />
+                        Safety stands silent, red and bright,<br />
+                        Check just behind to find your next light.
                     </p>
                     <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                        <strong>Hinglish:</strong> Slope cross karke thoda aage jao,<br/>
-                        Management aur eco ka combo pao.<br/>
-                        Deewar pe jahan college ka sign,<br/>
-                        Logo ke paas milega tumhara next line.
+                        <strong>Hinglish:</strong> Kanoon ki baatein, rules ka scene,<br />
+                        Seven ka number makes it clean.<br />
+                        Red safety guard jo corner mein khada,<br />
+                        Uske peeche hi raaz hai pada.
                     </p>
                 </div>
                 <br />

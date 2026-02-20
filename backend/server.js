@@ -270,63 +270,63 @@ async function getStats() {
 const phase2Questions = [
     {
         id: 1,
-        question: "Which algorithm technique solves problems by breaking them into subproblems?",
-        options: ["Divide and Conquer", "Random Search", "Greedy Avoidance", "Brute Force"],
+        question: 'Smart cities use AI primarily to improve',
+        options: ['Traffic, energy, and safety', 'Farming only', 'Space travel', 'Movie production'],
         correctAnswer: 0
     },
     {
         id: 2,
-        question: "Which data structure uses FIFO?",
-        options: ["Heap", "Queue", "Graph", "Stack"],
-        correctAnswer: 1
-    },
-    {
-        id: 3,
-        question: "What does CPU stand for?",
-        options: ["Control Program Utility", "Computer Personal Unit", "Central Processing Unit", "Central Process Unit"],
+        question: 'Smart parking systems rely on',
+        options: ['Security guards only', 'Manual tickets', 'IoT sensors with AI', 'Typewriters'],
         correctAnswer: 2
     },
     {
-        id: 4,
-        question: "Which sorting algorithm has average complexity O(n log n)?",
-        options: ["Selection Sort", "Bubble Sort", "Insertion Sort", "Merge Sort"],
+        id: 3,
+        question: 'AI-powered surveillance enhances',
+        options: ['Printing', 'Entertainment', 'Food delivery', 'Public safety'],
         correctAnswer: 3
     },
     {
-        id: 5,
-        question: "What is the binary representation of decimal 10?",
-        options: ["1110", "1010", "1001", "1100"],
+        id: 4,
+        question: 'Which technology predicts equipment failure in infrastructure?',
+        options: ['Optical drives', 'Predictive maintenance', 'FTP', 'Cloud gaming'],
         correctAnswer: 1
     },
     {
+        id: 5,
+        question: 'AI helps waste management by',
+        options: ['Removing bins', 'Stopping recycling', 'Increasing garbage', 'Optimizing collection routes'],
+        correctAnswer: 3
+    },
+    {
         id: 6,
-        question: "Which layer of the OSI model handles routing?",
-        options: ["Network", "Transport", "Session", "Presentation"],
+        question: 'Smart grids are designed to',
+        options: ['Efficiently distribute power', 'Replace batteries', 'Waste electricity', 'Slow transmission'],
         correctAnswer: 0
     },
     {
         id: 7,
-        question: "A primary key must be:",
-        options: ["Repeated", "Optional", "Encrypted", "Unique"],
-        correctAnswer: 3
+        question: 'Flood prediction systems use AI to analyze',
+        options: ['Social events', 'Weather and sensor data', 'Movie trends', 'Mobile apps'],
+        correctAnswer: 1
     },
     {
         id: 8,
-        question: "Which language is primarily used for web page structure?",
-        options: ["Python", "C++", "HTML", "Java"],
+        question: 'Digital twins in smart cities are',
+        options: ['Gaming avatars', 'Robot citizens', 'Virtual models of physical environments', 'Social media bots'],
         correctAnswer: 2
     },
     {
         id: 9,
-        question: "What is recursion?",
-        options: ["Memory deletion", "Parallel computing", "Loop unrolling", "Function calling itself"],
+        question: 'AI-enabled public transport systems aim to',
+        options: ['Increase delays', 'Eliminate buses', 'Reduce efficiency', 'Improve route planning'],
         correctAnswer: 3
     },
     {
         id: 10,
-        question: "Which memory is volatile?",
-        options: ["Hard Disk", "RAM", "SSD", "ROM"],
-        correctAnswer: 1
+        question: 'One major concern in smart cities is',
+        options: ['Too many parks', 'Excess sunlight', 'Data security and privacy', 'Short buildings'],
+        correctAnswer: 2
     }
 ];
 
@@ -334,64 +334,59 @@ const phase2Questions = [
 const phase3Questions = [
     {
         id: 1,
-        code: `#include <stdio.h>\nint main() {\n    int i, sum = 0;\n    for (i = 1; i <= 5; i++) {\n        if (i % 2 == 0)\n            continue;\n        sum += i;\n    }\n    printf("%d", sum);\n    return 0;\n}`,
+        code: `#include <stdio.h>\nint main() {\n    int i = 0, count = 0;\n    for (i = 0; i < 5; i++) {\n        if (i++ % 2 == 0) {\n            count++;\n        }\n    }\n    printf("%d", count);\n    return 0;\n}`,
         question: "What will be the output of this code?",
-        options: ["6", "9", "15", "10"],
+        options: ["2", "3", "4", "5"],
         correctAnswer: 1
     },
     {
         id: 2,
-        code: `#include <stdio.h>\nint main() {\n    int a = 5, b = 10;\n    int *p = &a, *q = &b;\n    *p = *q;\n    *q = a;\n    printf("%d %d", a, b);\n    return 0;\n}`,
+        code: `#include <stdio.h>\nvoid swap(int *x, int *y) {\n    int temp = *x;\n    *x = *y;\n    *y = temp;\n}\nint main() {\n    int a = 3, b = 4;\n    swap(&a, &b);\n    a = a + b;\n    b = a - b;\n    a = a - b;\n    printf("%d %d", a, b);\n    return 0;\n}`,
         question: "What will be the output of this code?",
-        options: ["5 10", "10 5", "10 10", "5 5"],
-        correctAnswer: 2
-    },
-    {
-        id: 3,
-        code: `#include <stdio.h>\nint fun(int n) {\n    if (n == 0)\n        return 0;\n    return n % 10 + fun(n / 10);\n}\nint main() {\n    printf("%d", fun(1234));\n    return 0;\n}`,
-        question: "What will be the output of this code?",
-        options: ["1234", "4321", "10", "24"],
-        correctAnswer: 2
-    },
-    {
-        id: 4,
-        code: `#include <stdio.h>\nint main() {\n    int arr[] = {1, 2, 3, 4, 5};\n    int *ptr = arr;\n    printf("%d ", *(ptr + 2));\n    ptr++;\n    printf("%d ", *(ptr + 2));\n    return 0;\n}`,
-        question: "What will be the output of this code?",
-        options: ["2 4", "3 5", "3 4", "1 3"],
+        options: ["4 3", "3 4", "7 4", "3 7"],
         correctAnswer: 1
     },
     {
-        id: 5,
-        code: `#include <stdio.h>\nint main() {\n    int x = 1;\n    switch (x) {\n        case 1: printf("A");\n        case 2: printf("B");\n        case 3: printf("C");\n                break;\n        default: printf("D");\n    }\n    return 0;\n}`,
+        id: 3,
+        code: `#include <stdio.h>\nvoid solve(int n) {\n    if (n > 0) {\n        solve(n / 2);\n        printf("%d", n % 2);\n    }\n}\nint main() {\n    solve(10);\n    return 0;\n}`,
         question: "What will be the output of this code?",
-        options: ["A", "AB", "ABC", "ABCD"],
+        options: ["0101", "1010", "20", "10"],
+        correctAnswer: 1
+    },
+    {
+        id: 4,
+        code: `#include <stdio.h>\nint main() {\n    int arr[] = {10, 20, 30, 40, 50};\n    int *p = arr + 1;\n    printf("%d ", *p);\n    p += 2;\n    printf("%d", p[-1]);\n    return 0;\n}`,
+        question: "What will be the output of this code?",
+        options: ["20 40", "30 40", "20 30", "30 50"],
         correctAnswer: 2
+    },
+    {
+        id: 5,
+        code: `#include <stdio.h>\nint main() {\n    int a = 1, b = 0, c = 2;\n    if (a-- || b++ && c--) {\n        printf("%d %d %d", a, b, c);\n    }\n    return 0;\n}`,
+        question: "What will be the output of this code?",
+        options: ["0 1 1", "0 0 2", "1 0 2", "1 1 1"],
+        correctAnswer: 1
     }
 ];
 
 // Phase 4 Buggy Code
 const phase4Code = `#include <stdio.h>
-
 int main() {
-    int arr[5] = {10, 20, 30, 40, 50};
-    int *ptr = arr;
-    int sum = 0, i;
-
-    for (i = 0; i < 5; i++) {
-        if (i % 2 = 0) {
-            sum += *(ptr + i)
-        }
+    int num = 5;
+    int fact = 1;
+    
+    for(int i = 1; i =< num; i++) {
+        fact = fact * i
     }
-
-    print("Sum of even-indexed: %d", sum);
-    retrun 0;
+    
+    printf("Factorial: %d", &fact);
+    return 0;
 }`;
 
 const phase4Hints = [
-    "Look carefully at the if condition - is '=' used for comparison?",
-    "Check for missing semicolons inside the loop body",
-    "Are 'print' and 'retrun' valid C keywords?",
-    "Even-indexed elements are arr[0], arr[2], arr[4] = 10, 30, 50"
+    "Check the relational operator in the for loop.",
+    "There is a missing semicolon inside the loop.",
+    "In the printf statement, are you printing the value of the variable, or its memory address?"
 ];
 
 // Phase 5 Riddles - 3 Challenges (ALL required to pass)
@@ -399,32 +394,72 @@ const phase5Riddles = [
     {
         id: 1,
         type: "mcq",
-        riddle: "Study the maze below and find the ONLY path from S (Start) to E (Exit). Walls (#) block movement. You can only move Right (→) or Down (↓).\n\n    C0  C1  C2  C3  C4  C5\nR0: [S] [.] [#] [.] [.] [.]\nR1: [#] [.] [.] [.] [#] [.]\nR2: [#] [#] [#] [.] [.] [.]\nR3: [.] [.] [#] [#] [#] [.]\nR4: [#] [.] [.] [.] [#] [.]\nR5: [#] [#] [#] [.] [.] [E]\n\nWhich sequence of moves leads from S to E?",
+        riddle: "Study the maze below and find the ONLY path from S (Start) to E (Exit). Walls (#) block movement. You can only move Right (→) or Down (↓).\n\n    C0  C1  C2  C3  C4  C5\nR0: [S] [#] [.] [.] [.] [.]\nR1: [.] [.] [.] [#] [.] [.]\nR2: [#] [#] [.] [#] [.] [.]\nR3: [.] [.] [.] [.] [.] [#]\nR4: [#] [#] [#] [#] [.] [#]\nR5: [.] [.] [.] [#] [.] [E]\n\nWhich sequence of moves leads from S to E?",
         options: [
-            "→ ↓ → → ↓ ↓ → → ↓ ↓",
-            "→ ↓ → → ↓ → → ↓ ↓ ↓",
-            "→ ↓ → ↓ → → ↓ ↓ → ↓",
-            "→ ↓ → → ↓ → ↓ → ↓ ↓"
+            "↓ → → ↓ ↓ → → ↓ ↓ →",
+            "↓ → ↓ → ↓ → ↓ → → ↓",
+            "→ ↓ → ↓ → ↓ → ↓ → ↓",
+            "↓ → → ↓ → ↓ → ↓ ↓ →"
         ],
-        correctAnswer: 1
+        correctAnswer: 0
     },
     {
         id: 2,
         type: "mcq",
-        riddle: "LOGICAL DEDUCTION: Each CS Module is assigned exactly one function.\n\nCS Modules:\n  1. AlgoCore\n  2. DataNest\n  3. LogicFlow\n  4. ByteWorks\n\nFunctions:\n  A. Algorithms\n  B. Data Structures\n  C. Memory Management\n  D. Control Flow\n\nClues:\n  • DataNest (2) is assigned to Control Flow (D)\n  • AlgoCore (1) is assigned to Data Structures (B)\n  • ByteWorks (4) is NOT assigned to B or D\n  • LogicFlow (3) is assigned to Algorithms (A)\n\nWhat is the correct mapping?",
+        riddle: `LOGICAL DEDUCTION: Each Smart City AI System is assigned exactly one function.
+
+Smart City AI Systems:
+1. TrafficMind
+2. PowerGridAI
+3. SafeCity
+4. AquaSense
+
+City Functions:
+A. Traffic Management
+B. Energy Optimization
+C. Public Safety
+D. Water Monitoring
+
+Clues:
+• TrafficMind (1) is assigned to Traffic Management (A)
+• PowerGridAI (2) is assigned to Energy Optimization (B)
+• AquaSense (4) is NOT assigned to A or B
+• SafeCity (3) is assigned to Public Safety (C)
+
+What is the correct mapping?`,
         options: [
-            "AlgoCore→A, DataNest→D, LogicFlow→B, ByteWorks→C",
-            "AlgoCore→B, DataNest→D, LogicFlow→A, ByteWorks→C",
-            "AlgoCore→B, DataNest→C, LogicFlow→A, ByteWorks→D",
-            "AlgoCore→C, DataNest→D, LogicFlow→A, ByteWorks→B"
+            "TrafficMind → B, PowerGridAI → A, SafeCity → C, AquaSense → D",
+            "TrafficMind → A, PowerGridAI → B, SafeCity → C, AquaSense → D",
+            "TrafficMind → A, PowerGridAI → B, SafeCity → D, AquaSense → C",
+            "TrafficMind → C, PowerGridAI → B, SafeCity → A, AquaSense → D"
         ],
         correctAnswer: 1
     },
     {
         id: 3,
         type: "text",
-        riddle: "PATTERN RECOGNITION\n\nStep 1 — Given Values:\n  A = 5,  B = 4,  C = 3,  D = 6\n\nStep 2 — Solve these expressions in order:\n  1) (3 × D) + 1\n  2) (4 × A)\n  3) (B − 3)\n  4) (2 × A) + 4\n  5) (C + 1)\n  6) (1 × A)\n  7) (1 × A)\n\nStep 3 — Convert each result to a letter using A1–Z26\n  (A=1, B=2, C=3 ... Z=26)\n\nWhat is the decoded keyword?",
-        acceptedAnswers: ["standee", "STANDEE", "Standee"]
+        riddle: `🧩 PART 2: PATTERN RECOGNITION
+
+Step 1: Given Values
+A = 5, B = 7, C = 8, D = 6
+
+Step 2: Equation
+Using the values above, solve the following expressions in order:
+1) (2 × B)
+2) (1 × A)
+3) (3 × D) + 6
+4) (4 × A)
+5) (C − 1)
+6) (1 × A)
+7) (2 × B)
+
+Step 3: Final Instruction
+Convert the obtained numbers using A1–Z26
+ (A = 1, B = 2, … Z = 26)
+
+Final Task:
+Submit the decoded keyword to unlock the final phase.`,
+        acceptedAnswers: ["nextgen", "NEXTGEN", "Nextgen"]
     }
 ];
 
@@ -788,9 +823,9 @@ app.post('/api/phase4/submit', async (req, res) => {
             return res.status(400).json({ error: 'Phase 4 already completed' });
         }
 
-        const correctAnswer = 'sum of even-indexed: 90';
+        const correctAnswer = 'factorial: 120';
         const userAnswer = answer ? answer.trim().toLowerCase() : '';
-        const isCorrect = userAnswer === correctAnswer || userAnswer === '90';
+        const isCorrect = userAnswer === correctAnswer || userAnswer === '120';
 
         if (isCorrect) {
             await saveTeam(teamId, {
@@ -805,7 +840,7 @@ app.post('/api/phase4/submit', async (req, res) => {
             return res.json({
                 success: true,
                 correct: true,
-                message: 'Correct! The next treasure is at Room 2012!',
+                message: 'Correct! The next treasure is at Lab 2012!',
                 room: '2012'
             });
         }

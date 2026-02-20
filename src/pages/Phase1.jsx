@@ -43,19 +43,19 @@ export default function Phase1({ team, setTeam }) {
                     textAlign: 'left'
                 }}>
                     <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                        🧩 RIDDLE - Find Your Next Location
+                        🧩 STAGE 2 RIDDLE - Find Your Next Location
                     </p>
                     <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px' }}>
-                        When hunger hits and crowds collide,<br/>
-                        The biggest food stop stands with pride.<br/>
-                        Near the number four, always alive,<br/>
-                        Plates and plans here truly thrive.
+                        Where campus paths cross, both science minds unite,<br />
+                        Engineers and pharma learn from morning till night.<br />
+                        On the ground where green leaves quietly chant,<br />
+                        Look down below, resting under a plant.
                     </p>
                     <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                        <strong>Hinglish:</strong> Jab bhookh lage aur crowd ho tight,<br/>
-                        Sabse badi canteen stays in sight.<br/>
-                        Four ke paas jo hamesha alive,<br/>
-                        Khana aur clues dono yahin survive.
+                        <strong>Hinglish:</strong> Campus ke center mein jahan sabka flow hai,<br />
+                        Engineer aur pharma ka common show hai.<br />
+                        Neeche zameen par hariyali ka hint,<br />
+                        Ped ke neeche chhupa hai agla print.
                     </p>
                 </div>
             </div>
@@ -139,19 +139,19 @@ export default function Phase1({ team, setTeam }) {
                     textAlign: 'left'
                 }}>
                     <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                        🧩 RIDDLE - Find Your Next Location
+                        🧩 STAGE 2 RIDDLE - Find Your Next Location
                     </p>
                     <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px' }}>
-                        When hunger hits and crowds collide,<br/>
-                        The biggest food stop stands with pride.<br/>
-                        Near the number four, always alive,<br/>
-                        Plates and plans here truly thrive.
+                        Where campus paths cross, both science minds unite,<br />
+                        Engineers and pharma learn from morning till night.<br />
+                        On the ground where green leaves quietly chant,<br />
+                        Look down below, resting under a plant.
                     </p>
                     <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                        <strong>Hinglish:</strong> Jab bhookh lage aur crowd ho tight,<br/>
-                        Sabse badi canteen stays in sight.<br/>
-                        Four ke paas jo hamesha alive,<br/>
-                        Khana aur clues dono yahin survive.
+                        <strong>Hinglish:</strong> Campus ke center mein jahan sabka flow hai,<br />
+                        Engineer aur pharma ka common show hai.<br />
+                        Neeche zameen par hariyali ka hint,<br />
+                        Ped ke neeche chhupa hai agla print.
                     </p>
                 </div>
                 <br />

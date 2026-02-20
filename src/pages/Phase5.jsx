@@ -4,16 +4,20 @@ import { API_URL } from '../App'
 
 function HintPoem() {
     return (
-        <p style={{ lineHeight: '1.8', fontSize: '1.05rem', color: '#e2e8f0', fontStyle: 'italic', margin: 0 }}>
-            I am the mind behind your mission,<br />
-            Not a person, yet I lead.<br />
-            I <u>stand tall</u>, I wear the <u>organizing team's mark</u>,<br />
-            Where ideas meet their seed.<br />
-            Find me where the <u>second rise</u> begins,<br />
-            On the <u>floor that touches ground</u>.<br />
-            Capture proof that you were here —<br />
-            And your victory is found.
-        </p>
+        <>
+            <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px' }}>
+                When hunger hits and crowds collide,<br />
+                The biggest food stop stands with pride.<br />
+                Near the number four, always alive,<br />
+                Plates and plans here truly thrive.
+            </p>
+            <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                <strong>Hinglish:</strong> Jab bhookh lage aur crowd ho tight,<br />
+                Sabse badi canteen stays in sight.<br />
+                Four ke paas jo hamesha alive,<br />
+                Khana aur clues dono yahin survive.
+            </p>
+        </>
     )
 }
 
@@ -307,7 +311,7 @@ export default function Phase5({ team, setTeam }) {
                             <button
                                 key={idx}
                                 className={`quiz-option ${submitting && answers[riddle.id]?.answer === idx ?
-                                        (answers[riddle.id]?.correct ? 'correct' : 'wrong') : ''
+                                    (answers[riddle.id]?.correct ? 'correct' : 'wrong') : ''
                                     }`}
                                 onClick={() => checkAnswer(idx)}
                                 disabled={submitting || answers[riddle.id]}

@@ -170,14 +170,17 @@ export default function Phase6({ team, setTeam }) {
             {/* Final Riddle */}
             <div className="riddle-card" style={{ marginBottom: '40px' }}>
                 <div className="riddle-icon">🗺️</div>
-                <p className="riddle-text">
-                    "Where knowledge is built brick by brick,<br />
-                    And NextGenAI's vision stands tall and thick,<br />
-                    Find the statue/landmark where wisdom starts,<br />
-                    Upload your team photo to win our hearts!"
+                <p className="riddle-text" style={{ fontStyle: 'italic' }}>
+                    When hunger hits and crowds collide,<br />
+                    The biggest food stop stands with pride.<br />
+                    Near the number four, always alive,<br />
+                    Plates and plans here truly thrive.
                 </p>
-                <p style={{ color: '#FFD700', fontSize: '0.9rem', marginTop: '20px' }}>
-                    Hint: Think about where innovation meets education at VU campus
+                <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.6', marginTop: '15px', textAlign: 'left' }}>
+                    <strong>Hinglish:</strong> Jab bhookh lage aur crowd ho tight,<br />
+                    Sabse badi canteen stays in sight.<br />
+                    Four ke paas jo hamesha alive,<br />
+                    Khana aur clues dono yahin survive.
                 </p>
             </div>
 

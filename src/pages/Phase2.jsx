@@ -142,19 +142,19 @@ export default function Phase2({ team, setTeam }) {
                     textAlign: 'left'
                 }}>
                     <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                        🧩 RIDDLE - Find Your Next Location
+                        🧩 STAGE 3 RIDDLE - Find Your Next Location
                     </p>
                     <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px' }}>
-                        Climb one level, logic gets strong,<br/>
-                        Screens glow bright where coders belong.<br/>
-                        Syntax speaks, machines align,<br/>
-                        First floor hides the next design.
+                        One ball, one hoop, one place to score,<br />
+                        Echoes of bounce on the open floor.<br />
+                        No nets of books, just aim and run,<br />
+                        Find the code where the matches are won.
                     </p>
                     <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                        <strong>Hinglish:</strong> Ek floor upar, logic on fire,<br/>
-                        Screens aur code ka perfect choir.<br/>
-                        CS ka adda, focus lab divine,<br/>
-                        First floor pe milega next sign.
+                        <strong>Hinglish:</strong> Ek ball, ek hoop, ek hi court,<br />
+                        Bounce ki awaaz ka hota hai report.<br />
+                        Books nahi, bas focus aur shot,<br />
+                        Game wali jagah pe milega next plot.
                     </p>
                 </div>
             </div>
@@ -241,19 +241,19 @@ export default function Phase2({ team, setTeam }) {
                         textAlign: 'left'
                     }}>
                         <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                            🧩 RIDDLE - Find Your Next Location
+                            🧩 STAGE 3 RIDDLE - Find Your Next Location
                         </p>
                         <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '15px' }}>
-                            Climb one level, logic gets strong,<br/>
-                            Screens glow bright where coders belong.<br/>
-                            Syntax speaks, machines align,<br/>
-                            First floor hides the next design.
+                            One ball, one hoop, one place to score,<br />
+                            Echoes of bounce on the open floor.<br />
+                            No nets of books, just aim and run,<br />
+                            Find the code where the matches are won.
                         </p>
                         <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                            <strong>Hinglish:</strong> Ek floor upar, logic on fire,<br/>
-                            Screens aur code ka perfect choir.<br/>
-                            CS ka adda, focus lab divine,<br/>
-                            First floor pe milega next sign.
+                            <strong>Hinglish:</strong> Ek ball, ek hoop, ek hi court,<br />
+                            Bounce ki awaaz ka hota hai report.<br />
+                            Books nahi, bas focus aur shot,<br />
+                            Game wali jagah pe milega next plot.
                         </p>
                     </div>
                     <br />
