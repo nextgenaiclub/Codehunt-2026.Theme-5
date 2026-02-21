@@ -467,6 +467,11 @@ Submit the decoded keyword to unlock the final phase.`,
 // API ROUTES
 // ============================================
 
+// Health check (for Render)
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', firebase: useFirebase });
+});
+
 // Register new team (Phase 1)
 app.post('/api/teams/register', async (req, res) => {
     try {

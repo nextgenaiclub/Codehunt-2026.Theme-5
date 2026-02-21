@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: codehunt-2026-theme5
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: npm run render-build
+    startCommand: cd backend && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: FIREBASE_CREDENTIALS
+        sync: false   # You will paste this manually in Render dashboard
+      - key: JWT_SECRET
+        sync: false   # You will set this manually in Render dashboard
+    healthCheckPath: /api/health
