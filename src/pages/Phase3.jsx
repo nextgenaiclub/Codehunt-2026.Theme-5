@@ -112,22 +112,8 @@ export default function Phase3({ team, setTeam }) {
                     textAlign: 'left'
                 }}>
                     <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                        🧩 STAGE 4 RIDDLES - Find Your Next Locations
+                        🧩 STAGE 4 RIDDLE - Find Your Next Location
                     </p>
-                    <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '10px' }}>
-                        <strong style={{ color: '#FFD700', fontStyle: 'normal' }}>Riddle A:</strong><br />
-                        From ground you start the digital race,<br />
-                        Keyboards click in a focused space.<br />
-                        Where systems run and minds compile,<br />
-                        The lower lab hides the next file.
-                    </p>
-                    <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '15px' }}>
-                        <strong>Hinglish:</strong> Zameen se shuru hota coding ka track,<br />
-                        Keyboard ki awaaz, full focus mode on pack.<br />
-                        Neeche wale lab mein dimag align,<br />
-                        Ground floor pe milega agla sign.
-                    </p>
-                    <div style={{ borderTop: '1px solid rgba(139, 92, 246, 0.3)', margin: '15px 0' }} />
                     <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '10px' }}>
                         <strong style={{ color: '#FFD700', fontStyle: 'normal' }}>Riddle B:</strong><br />
                         Climb one level, logic gets strong,<br />
@@ -248,22 +234,8 @@ export default function Phase3({ team, setTeam }) {
                                 textAlign: 'left'
                             }}>
                                 <p style={{ color: '#a78bfa', fontFamily: 'Orbitron', fontSize: '0.85rem', marginBottom: '15px', textAlign: 'center' }}>
-                                    🧩 STAGE 4 RIDDLES - Find Your Next Locations
+                                    🧩 STAGE 4 RIDDLE - Find Your Next Location
                                 </p>
-                                <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '10px' }}>
-                                    <strong style={{ color: '#FFD700', fontStyle: 'normal' }}>Riddle A:</strong><br />
-                                    From ground you start the digital race,<br />
-                                    Keyboards click in a focused space.<br />
-                                    Where systems run and minds compile,<br />
-                                    The lower lab hides the next file.
-                                </p>
-                                <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '15px' }}>
-                                    <strong>Hinglish:</strong> Zameen se shuru hota coding ka track,<br />
-                                    Keyboard ki awaaz, full focus mode on pack.<br />
-                                    Neeche wale lab mein dimag align,<br />
-                                    Ground floor pe milega agla sign.
-                                </p>
-                                <div style={{ borderTop: '1px solid rgba(139, 92, 246, 0.3)', margin: '15px 0' }} />
                                 <p style={{ color: '#e2e8f0', fontStyle: 'italic', lineHeight: '1.8', marginBottom: '10px' }}>
                                     <strong style={{ color: '#FFD700', fontStyle: 'normal' }}>Riddle B:</strong><br />
                                     Climb one level, logic gets strong,<br />

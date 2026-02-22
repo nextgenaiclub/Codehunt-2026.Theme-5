@@ -7,6 +7,7 @@ import Phase2 from './pages/Phase2'
 import Phase3 from './pages/Phase3'
 import Phase4 from './pages/Phase4'
 import Phase5 from './pages/Phase5'
+import Phase5Location2 from './pages/Phase5Location2'
 import Phase6 from './pages/Phase6'
 
 import Admin from './pages/Admin'
@@ -35,7 +36,7 @@ function App() {
         .then(data => {
           if (data) setTeam(data)
         })
-        .catch(() => {})
+        .catch(() => { })
         .finally(() => setSyncing(false))
     } else {
       setSyncing(false)
@@ -63,6 +64,7 @@ function App() {
         <Route path="/phase3" element={<Phase3 team={team} setTeam={setTeam} />} />
         <Route path="/phase4" element={<Phase4 team={team} setTeam={setTeam} />} />
         <Route path="/phase5" element={<Phase5 team={team} setTeam={setTeam} />} />
+        <Route path="/phase5-location2" element={<Phase5Location2 />} />
         <Route path="/phase6" element={<Phase6 team={team} setTeam={setTeam} />} />
 
         <Route path="/admin" element={<Admin />} />

@@ -420,12 +420,6 @@ B. Energy Optimization
 C. Public Safety
 D. Water Monitoring
 
-Clues:
-• TrafficMind (1) is assigned to Traffic Management (A)
-• PowerGridAI (2) is assigned to Energy Optimization (B)
-• AquaSense (4) is NOT assigned to A or B
-• SafeCity (3) is assigned to Public Safety (C)
-
 What is the correct mapping?`,
         options: [
             "TrafficMind → B, PowerGridAI → A, SafeCity → C, AquaSense → D",
